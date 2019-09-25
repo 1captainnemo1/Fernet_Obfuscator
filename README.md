@@ -12,7 +12,7 @@ that can be used to perform different tasks.</p></b>
 
 <p><b>Please do not upload to virus total.</p></b>
 
-<p><b>Usage : python fernet_obs.py <nonfud_payload.py>  </p></b>
+<p><b>Usage : python fernet_obs.py nonfud_payload.py  </p></b>
 
 <p><b>This Will generate the FUD payload.</p></b>
 
