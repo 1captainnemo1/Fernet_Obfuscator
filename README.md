@@ -1,4 +1,4 @@
-# Fernet_Obfuscator
+
 A python Code to obfuscate any non-fud python payload and generate a ready to use FUD Python executable script
 
 <h1> <b>Fernet_Obfuscator </b></h1>
