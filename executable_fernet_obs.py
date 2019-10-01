@@ -191,7 +191,7 @@ print bcolors.BOLD + bcolors.WHITE + "[+] Compilation Success-----------"
 
 print bcolors.BOLD + bcolors.WHITE + "[+] Performing Cleanup Job, Please wait"
 
-os.system('rm out1.spec')
+os.system('rm out1.spec out1.py')
 time.sleep(1) 
 
 print bcolors.BOLD + bcolors.WHITE + "[+] Executable Located in the /dist Subfolder"
