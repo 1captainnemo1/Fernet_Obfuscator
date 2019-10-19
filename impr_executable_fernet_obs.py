@@ -126,8 +126,8 @@ load.write("""
 import win32gui, win32con
 import os
 import subprocess
-#subprocess.Popen(['out1.exe'])
-subprocess.call("out1.exe", shell=True)
+#subprocess.Popen(['out1signed.exe'])
+subprocess.call("out1signed.exe", shell=True)
     """)
 load.close()
 
